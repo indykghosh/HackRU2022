@@ -18,10 +18,11 @@ events = []
 client = Client(key, secret, twilio_sid)
 
 month_dict = {
-    'january': 1, 'fbruary' : 2, 'march' : 3, 'april' : 4,
+    'january': 1, 'february' : 2, 'march' : 3, 'april' : 4,
     'may' : 5, 'june' : 6, 'july' : 7, 'august' : 8, 'september' : 9,
     'october' : 10, 'november' : 11, 'december' : 12
 }
+
 
 def schedule_notifs(event, dateStart):
     send_day = int(dateStart.strftime("%d"))
@@ -39,7 +40,7 @@ def schedule_notifs(event, dateStart):
       else:
         send_day -= 1
 
-    send_date = datetime.datetime(int(dateStart.strftime("%Y")), send_month, send_day, 14)
+    send_date = datetime.datetime(int(dateStart.strftime("%Y")), send_month, send_day, 1, 40)
 
     # test_date = datetime.datetime(2022, 4, 2, 14)
 
@@ -64,13 +65,19 @@ def schedule_notifs(event, dateStart):
 # df = pd.read_csv(file)
 
 
+def interpret_csv(file):
+    df = pd.read_csv(file)
+    
+
+
+
 
 year = 2022
 month = 4
 day = 10
 
 
-send_date = datetime.datetime(year, month, day, 0, 22, 0)
+send_date = datetime.datetime(year, month, day, 0, 0, 0)
 events.append("Thanksgiving Break")
 
 schedule_notifs(events[0], send_date)
