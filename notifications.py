@@ -12,7 +12,7 @@ mg_sid = "MGbc475ef0b56418fd500454d524e52384"
 # key = os.environ['TWILIO_API_KEY']
 # secret = os.environ['TWILIO_API_SECRET']
 
-notif_list = ['+18482473420']
+notif_list = ['+18482473420', '+19084337325', '+18562063267']
 events = []
 
 client = Client(key, secret, twilio_sid)
@@ -40,35 +40,41 @@ def schedule_notifs(event, dateStart):
       else:
         send_day -= 1
 
-    send_date = datetime.datetime(int(dateStart.strftime("%Y")), send_month, send_day, 1, 40)
-
-    # test_date = datetime.datetime(2022, 4, 2, 14)
-
-    print(send_date.strftime("%A, %B %d %Y"))
+    send_date = datetime.datetime(int(dateStart.strftime("%Y")), send_month, send_day, 4, 00)
 
 
     for number in notif_list:
-        print(number)
-        mess_body = event + 'will begin in a week on ' + dateStart.strftime("%A, %B %d")
+        mess_body = event + ' will be in a week on ' + dateStart.strftime("%A, %B %d")
         message = client.messages \
             .create(
                 messaging_service_sid = mg_sid,
-                body = "testing schedules message",
+                body = mess_body,
                 send_at = send_date,
                 schedule_type='fixed',
                 to=number
             )
 
 
-#make into separate function
+# make into separate function
 # file = 'events.csv'
 # df = pd.read_csv(file)
 
 
 def interpret_csv(file):
     df = pd.read_csv(file)
-    
+    for i in range(len(df)):
+        eventname = df.loc([i, 'Event'])
+        for col in range(1, 4):
+          dateLine = df.loc([i][col])
+          dateLine = dateLine.replace(',',"")
+          dateLine = dateLine.replace("'", " ")
+          date_numbers = dateLine.split(' ', 4)
+          print(date_numbers)
 
+
+
+
+    
 
 
 
@@ -80,4 +86,4 @@ day = 10
 send_date = datetime.datetime(year, month, day, 0, 0, 0)
 events.append("Thanksgiving Break")
 
-schedule_notifs(events[0], send_date)
+# schedule_notifs(events[0], send_date)
