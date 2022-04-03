@@ -70,6 +70,7 @@ def interpret_csv(file):
           dateLine = dateLine.replace("'", " ")
           date_numbers = dateLine.split(' ', 4)
           print(date_numbers)
+          
 
 
 
